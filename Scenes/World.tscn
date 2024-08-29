@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://dn4si7klbbah2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ty7xf"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Room" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.245117, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Room"]
+use_collision = true
+size = Vector3(20, 0.5, 20)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Room"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.19204, -2.94128)
+shape = SubResource("BoxShape3D_ty7xf")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Room/RigidBody3D/CollisionShape3D"]
+use_collision = true
+
+[node name="env" type="Node3D" parent="."]

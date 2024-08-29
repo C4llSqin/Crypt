@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://vjbfp82y45gd"]
+
+[node name="PickupWorld" type="Node3D"]

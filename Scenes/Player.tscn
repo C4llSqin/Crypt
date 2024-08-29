@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://bggwydogotql7"]
+
+[ext_resource type="Script" path="res://Scripts/PlayerMovement.gd" id="1_bonoq"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4h50p"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+script = ExtResource("1_bonoq")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.00579, 0)
+light_color = Color(1, 1, 0, 1)
+light_energy = 4.717
+light_indirect_energy = 16.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_4h50p")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.699857, 0)
+current = true
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CharacterBody3D/CollisionShape3D"]
+height = 1.75

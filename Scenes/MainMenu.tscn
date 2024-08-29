@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://t4ak48tauiif"]
+
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_baw4y"]
+[ext_resource type="PackedScene" uid="uid://bggwydogotql7" path="res://Scenes/Player.tscn" id="2_5u4k5"]
+[ext_resource type="PackedScene" uid="uid://dn4si7klbbah2" path="res://Scenes/World.tscn" id="3_yh0b8"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_baw4y")
+
+[node name="Player" parent="." instance=ExtResource("2_5u4k5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.32608, 0)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 346.0
+offset_top = 128.0
+offset_right = 806.0
+offset_bottom = 192.0
+bbcode_enabled = true
+text = "Crypt"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 346.0
+offset_top = 256.0
+offset_right = 806.0
+offset_bottom = 320.0
+text = "Start the Game"
+
+[node name="World" parent="." instance=ExtResource("3_yh0b8")]
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
