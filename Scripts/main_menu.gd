@@ -10,7 +10,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-
-
-func _on_button_pressed() -> void: pass
+func _on_button_pressed() -> void:
+	$Button.hide();
+	$RichTextLabel.hide();
+	$Player.activate();
 	#$Player/RigidBody3D/Camera3D.make_current()
