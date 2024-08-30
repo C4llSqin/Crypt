@@ -1,38 +1,82 @@
-[gd_scene load_steps=3 format=3 uid="uid://dn4si7klbbah2"]
+[gd_scene load_steps=9 format=3 uid="uid://dn4si7klbbah2"]
+
+[ext_resource type="Texture2D" uid="uid://urptk8fueg1g" path="res://Assets/concrete_floor.png" id="1_8jnvn"]
+[ext_resource type="PackedScene" uid="uid://c5fnofqf21jpj" path="res://Assets/table.tscn" id="2_l5h4g"]
+[ext_resource type="PackedScene" uid="uid://dq1j4ewd5rwo6" path="res://Assets/bed.tscn" id="3_gqwut"]
+[ext_resource type="Texture2D" uid="uid://by1tjqaqbndio" path="res://Assets/brick_wall.png" id="4_u1l4x"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ernjf"]
+albedo_texture = ExtResource("1_8jnvn")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ty7xf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uspmg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_epog8"]
+albedo_texture = ExtResource("4_u1l4x")
 
 [node name="Node3D" type="Node3D"]
 
 [node name="Room" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.245117, 0)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Room"]
-use_collision = true
-size = Vector3(20, 0.5, 20)
+[node name="bed" parent="Room" instance=ExtResource("3_gqwut")]
+transform = Transform3D(-3.27835e-08, 0, 0.75, 0, 0.75, 0, -0.75, 0, -3.27835e-08, -3.21019, 0.25, 4.11245)
 
-[node name="RigidBody3D" type="RigidBody3D" parent="Room"]
+[node name="table" parent="Room" instance=ExtResource("2_l5h4g")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -4.29158, 0.905205, 0)
+
+[node name="floor" type="CSGBox3D" parent="Room"]
+material_override = SubResource("StandardMaterial3D_ernjf")
+use_collision = true
+size = Vector3(10, 0.5, 10)
+
+[node name="grabable_test_obj" type="RigidBody3D" parent="Room"]
 collision_layer = 3
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Room/RigidBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room/grabable_test_obj"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.19204, -2.94128)
 shape = SubResource("BoxShape3D_ty7xf")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Room/RigidBody3D/CollisionShape3D"]
+[node name="CSGBox3D" type="CSGBox3D" parent="Room/grabable_test_obj/CollisionShape3D"]
 use_collision = true
 
-[node name="Area3D" type="Area3D" parent="Room"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.59164, -7.25053)
+[node name="test_area" type="Area3D" parent="Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.59164, 2.22446)
 collision_layer = 2
 collision_mask = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Room/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room/test_area"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.245117, 0)
 shape = SubResource("BoxShape3D_uspmg")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Room/Area3D"]
+[node name="CSGBox3D" type="CSGBox3D" parent="Room/test_area"]
 use_collision = true
+
+[node name="walls" type="Node3D" parent="Room"]
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Room/walls"]
+transform = Transform3D(3.0598e-07, 0, 1, 0, 1, 0, -1, 0, 3.0598e-07, 0, 1.75, -5.25)
+material_override = SubResource("StandardMaterial3D_epog8")
+use_collision = true
+size = Vector3(0.5, 3, 10)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Room/walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.25, 1.75, 0)
+material_override = SubResource("StandardMaterial3D_epog8")
+use_collision = true
+size = Vector3(0.5, 3, 10)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Room/walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.25, 1.75, 0)
+material_override = SubResource("StandardMaterial3D_epog8")
+use_collision = true
+size = Vector3(0.5, 3, 10)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Room/walls"]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 0, 1.75, 5.25)
+material_override = SubResource("StandardMaterial3D_epog8")
+use_collision = true
+size = Vector3(0.5, 3, 10)
 
 [node name="env" type="Node3D" parent="."]
