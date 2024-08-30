@@ -1,3 +1,5 @@
+class_name player
+
 extends CharacterBody3D
 
 # movement
@@ -79,6 +81,8 @@ func _input(event: InputEvent) -> void:
 		if event.is_action_pressed("fus_ro_dah"):
 			print("Fus ro Dah!")
 			fus_ro_dah()
+
+
 
 func _process(delta: float) -> void:
 	handle_holding()

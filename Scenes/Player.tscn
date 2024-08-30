@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://c203adcsu68bm"]
 
-[ext_resource type="Script" path="res://Scripts/PlayerMovement.gd" id="1_bonoq"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_bonoq"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gjv66"]
 
-[node name="CharacterBody3D" type="CharacterBody3D"]
-collision_layer = 2
+[node name="Player" type="CharacterBody3D"]
+collision_mask = 3
 script = ExtResource("1_bonoq")
 
 [node name="Head" type="Camera3D" parent="."]

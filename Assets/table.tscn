@@ -67,15 +67,13 @@ shadow_mesh = SubResource("ArrayMesh_ni4bv")
 [sub_resource type="BoxShape3D" id="BoxShape3D_c7vcx"]
 size = Vector3(1.70874, 0.768341, 1)
 
-[node name="Table" type="Node3D"]
+[node name="table" type="Area3D"]
+collision_layer = 3
 
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
-freeze = true
-
-[node name="Node" type="MeshInstance3D" parent="RigidBody3D"]
+[node name="mesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_justd")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00622559, -0.256119, 0)
 shape = SubResource("BoxShape3D_c7vcx")

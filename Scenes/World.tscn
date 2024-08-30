@@ -1,10 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://dn4si7klbbah2"]
+[gd_scene load_steps=14 format=3 uid="uid://dn4si7klbbah2"]
 
 [ext_resource type="Texture2D" uid="uid://urptk8fueg1g" path="res://Assets/concrete_floor.png" id="1_8jnvn"]
 [ext_resource type="PackedScene" uid="uid://c5fnofqf21jpj" path="res://Assets/table.tscn" id="2_l5h4g"]
 [ext_resource type="PackedScene" uid="uid://dq1j4ewd5rwo6" path="res://Assets/bed.tscn" id="3_gqwut"]
+[ext_resource type="PackedScene" uid="uid://c6ht0n3k2coo0" path="res://Assets/paint_can.tscn" id="4_r6yhd"]
 [ext_resource type="Texture2D" uid="uid://by1tjqaqbndio" path="res://Assets/brick_wall.png" id="4_u1l4x"]
-[ext_resource type="PackedScene" uid="uid://d4gpyie2q8g2j" path="res://Scenes/Paper.tscn" id="5_sg83v"]
+[ext_resource type="PackedScene" uid="uid://clgfdnwj25psj" path="res://Assets/oven.tscn" id="6_1tkn7"]
+[ext_resource type="PackedScene" uid="uid://3snbhbnh0bl1" path="res://Assets/safe.tscn" id="6_8r4wf"]
+[ext_resource type="PackedScene" uid="uid://cjrwwoyxxs6h4" path="res://Assets/printer.tscn" id="6_nwl41"]
+[ext_resource type="PackedScene" uid="uid://ckkj4y3fg00dj" path="res://Assets/pan.tscn" id="8_f6f3w"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ernjf"]
 albedo_texture = ExtResource("1_8jnvn")
@@ -27,18 +31,30 @@ transform = Transform3D(-3.27835e-08, 0, 0.75, 0, 0.75, 0, -0.75, 0, -3.27835e-0
 [node name="table" parent="Room" instance=ExtResource("2_l5h4g")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -4.29158, 0.905205, 0)
 
+[node name="safe" parent="Room" instance=ExtResource("6_8r4wf")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 4.26601, 0.320109, -4.04756)
+
+[node name="paint_can" parent="Room" instance=ExtResource("4_r6yhd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.51015, 0.641079, -4.55839)
+
+[node name="Printer" parent="Room" instance=ExtResource("6_nwl41")]
+transform = Transform3D(-1.31134e-07, 0, 3, 0, 3, 0, -3, 0, -1.31134e-07, -4.33583, 0.255623, 2.33886)
+
+[node name="Area3D" parent="Room" instance=ExtResource("6_1tkn7")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 4.20795, 1.30446, 3.94325)
+
+[node name="pan" parent="Room" instance=ExtResource("8_f6f3w")]
+transform = Transform3D(-3.78552e-08, -0.5, -0.866025, -2.18557e-08, 0.866025, -0.5, 1, 0, -4.37114e-08, 2.6095, 1.0666, -4.33827)
+gravity_scale = 1.0
+
 [node name="floor" type="CSGBox3D" parent="Room"]
 material_override = SubResource("StandardMaterial3D_ernjf")
 use_collision = true
 size = Vector3(10, 0.5, 10)
 
-[node name="Camera3D" type="Camera3D" parent="Room"]
-transform = Transform3D(0.683013, 0.258819, -0.683013, 0.00623603, 0.933013, 0.359789, 0.73038, -0.25, 0.635646, -4.92944, 3.45892, 4.97222)
-
 [node name="grabable_test_obj" type="RigidBody3D" parent="Room"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.91992, -2.99736)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.72724, -3.47407)
 collision_layer = 3
-mass = 1.839
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Room/grabable_test_obj"]
 shape = SubResource("BoxShape3D_ty7xf")
@@ -56,7 +72,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.245117, 0)
 shape = SubResource("BoxShape3D_uspmg")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Room/test_area"]
-use_collision = true
 
 [node name="walls" type="Node3D" parent="Room"]
 
@@ -86,10 +101,6 @@ size = Vector3(0.5, 3, 10)
 
 [node name="env" type="Node3D" parent="."]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="env"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 9.75488, 0)
-visible = false
-light_indirect_energy = 16.0
-
-[node name="RigidBody3D" parent="." instance=ExtResource("5_sg83v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.59608, 0.953111, 1.15364)
+[node name="OmniLight3D" type="OmniLight3D" parent="env"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.09106, 0.548879, -3.1105)
+light_color = Color(1, 1, 0, 1)
