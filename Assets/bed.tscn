@@ -162,6 +162,7 @@ shadow_mesh = SubResource("ArrayMesh_mg7al")
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
 collision_layer = 3
+freeze = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01651, 0.877681, -0.0115356)

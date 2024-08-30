@@ -70,6 +70,7 @@ size = Vector3(1.70874, 0.768341, 1)
 [node name="Table" type="Node3D"]
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
+freeze = true
 
 [node name="Node" type="MeshInstance3D" parent="RigidBody3D"]
 mesh = SubResource("ArrayMesh_justd")
