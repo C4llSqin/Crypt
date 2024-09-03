@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://t4ak48tauiif"]
+[gd_scene load_steps=5 format=3 uid="uid://t4ak48tauiif"]
 
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_baw4y"]
 [ext_resource type="PackedScene" uid="uid://c203adcsu68bm" path="res://Scenes/Player.tscn" id="2_5u4k5"]
+[ext_resource type="FontFile" uid="uid://bxgjg1rsta6bo" path="res://Assets/papyrus.ttf" id="3_37bw7"]
 [ext_resource type="PackedScene" uid="uid://dn4si7klbbah2" path="res://Scenes/World.tscn" id="3_yh0b8"]
 
 [node name="Control" type="Control"]
@@ -16,16 +17,24 @@ script = ExtResource("1_baw4y")
 [node name="Player" parent="." instance=ExtResource("2_5u4k5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.128476, 0)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="overlay" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="title" type="RichTextLabel" parent="overlay"]
 layout_mode = 0
 offset_left = 346.0
 offset_top = 128.0
 offset_right = 806.0
 offset_bottom = 192.0
+theme_override_fonts/normal_font = ExtResource("3_37bw7")
+theme_override_font_sizes/normal_font_size = 39
 bbcode_enabled = true
-text = "Crypt"
+text = "[center]Crypt"
 
-[node name="Button" type="Button" parent="."]
+[node name="start_button" type="Button" parent="overlay"]
 layout_mode = 0
 offset_left = 346.0
 offset_top = 256.0
@@ -35,4 +44,36 @@ text = "Start the Game"
 
 [node name="World" parent="." instance=ExtResource("3_yh0b8")]
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[node name="win_screen" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="win_screen"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.686275)
+
+[node name="title2" type="RichTextLabel" parent="win_screen"]
+offset_left = 346.0
+offset_top = 239.0
+offset_right = 806.0
+offset_bottom = 322.0
+theme_override_fonts/normal_font = ExtResource("3_37bw7")
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "[center][color=yellow]A short escape room game by Zach Wilke for cybersecurity
+[/color][/center]Github: www.github.com/C4llSqin/Crypt "
+
+[node name="title" type="RichTextLabel" parent="win_screen"]
+offset_left = 346.0
+offset_top = 128.0
+offset_right = 806.0
+offset_bottom = 192.0
+theme_override_fonts/normal_font = ExtResource("3_37bw7")
+theme_override_font_sizes/normal_font_size = 39
+bbcode_enabled = true
+text = "[center]Crypt"
+
+[connection signal="pressed" from="overlay/start_button" to="." method="_on_button_pressed"]

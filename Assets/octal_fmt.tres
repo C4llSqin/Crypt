@@ -1,0 +1,10 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://c6a1fmpctebos"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_clonf"]
+draw_center = false
+border_width_bottom = 4
+
+[resource]
+LineEdit/font_sizes/font_size = 40
+LineEdit/styles/focus = SubResource("StyleBoxFlat_clonf")
+TextEdit/font_sizes/font_size = 37

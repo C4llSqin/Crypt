@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://d4gpyie2q8g2j"]
+[gd_scene load_steps=5 format=3 uid="uid://d4gpyie2q8g2j"]
 
+[ext_resource type="Script" path="res://Scripts/paper.gd" id="1_biwve"]
 [ext_resource type="Texture2D" uid="uid://bknl42kuhm0l3" path="res://Assets/paper.png" id="1_dr5ew"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e5lbm"]
@@ -8,8 +9,10 @@ albedo_texture = ExtResource("1_dr5ew")
 [sub_resource type="BoxShape3D" id="BoxShape3D_i1nlg"]
 size = Vector3(0.475, 0.1, 0.337)
 
-[node name="RigidBody3D" type="RigidBody3D"]
-collision_layer = 3
+[node name="paper" type="RigidBody3D"]
+collision_layer = 7
+collision_mask = 7
+script = ExtResource("1_biwve")
 
 [node name="paper" type="CSGBox3D" parent="."]
 material_override = SubResource("StandardMaterial3D_e5lbm")

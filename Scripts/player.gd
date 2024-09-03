@@ -2,6 +2,8 @@ class_name player
 
 extends CharacterBody3D
 
+signal flavor_done
+
 # movement
 const SPEED = 5.0
 const Sense = -0.4
@@ -13,6 +15,10 @@ const follow_force = 5
 const object_distance = 2
 const max_distance = 5.0
 var heldObject: RigidBody3D = null
+
+#typing logic
+const time_per_char = 0.03
+var typing_time = 0
 
 func activate() -> void:
 	active = true
@@ -51,7 +57,7 @@ func handle_holding():
 		# Drop the object if it's too far away from the camera
 		if heldObject.global_position.distance_to($Head.global_position) > max_distance:
 			drop_held()
-		
+
 func use_input():
 	if heldObject != null:
 		drop_held()
@@ -62,8 +68,34 @@ func use_input():
 	if collision is RigidBody3D: 
 		print("Object")
 		heldObject = collision
-	elif collision is Area3D: 
+	elif collision is Area3D:
 		print("Area")
+		if collision.has_method("on_interact"):
+			print("Area - interactable")
+			
+			collision.on_interact(self)
+
+func write_diolog(text: String):
+	$flavor_text/fade_timer.stop() 
+	$flavor_text.visible_characters = 0
+	$flavor_text.text = "[center]" + text
+	$flavor_text.visible_ratio = 0
+
+func process_type(delta: float) -> void:
+	if $flavor_text.visible_ratio == 1:
+		typing_time = 0
+		return
+	typing_time += delta
+	while typing_time > time_per_char:
+		$flavor_text.visible_characters += 1
+		if $flavor_text.visible_ratio == 1: 
+			$flavor_text/fade_timer.start()
+			emit_signal("flavor_done")
+			return
+		typing_time -= time_per_char
+
+func _on_fade_timer_timeout() -> void:
+	write_diolog("")
 
 func _input(event: InputEvent) -> void:
 	#print(typeof(event))
@@ -82,10 +114,9 @@ func _input(event: InputEvent) -> void:
 			print("Fus ro Dah!")
 			fus_ro_dah()
 
-
-
 func _process(delta: float) -> void:
 	handle_holding()
+	process_type(delta)
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.

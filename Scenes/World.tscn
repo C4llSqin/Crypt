@@ -1,26 +1,52 @@
-[gd_scene load_steps=14 format=3 uid="uid://dn4si7klbbah2"]
+[gd_scene load_steps=27 format=3 uid="uid://dn4si7klbbah2"]
 
 [ext_resource type="Texture2D" uid="uid://urptk8fueg1g" path="res://Assets/concrete_floor.png" id="1_8jnvn"]
+[ext_resource type="Script" path="res://Scenes/world.gd" id="1_vmsmh"]
 [ext_resource type="PackedScene" uid="uid://c5fnofqf21jpj" path="res://Assets/table.tscn" id="2_l5h4g"]
 [ext_resource type="PackedScene" uid="uid://dq1j4ewd5rwo6" path="res://Assets/bed.tscn" id="3_gqwut"]
-[ext_resource type="PackedScene" uid="uid://c6ht0n3k2coo0" path="res://Assets/paint_can.tscn" id="4_r6yhd"]
+[ext_resource type="PackedScene" uid="uid://dbfkx10igmb7b" path="res://Assets/paint_can.tscn" id="4_r6yhd"]
 [ext_resource type="Texture2D" uid="uid://by1tjqaqbndio" path="res://Assets/brick_wall.png" id="4_u1l4x"]
-[ext_resource type="PackedScene" uid="uid://clgfdnwj25psj" path="res://Assets/oven.tscn" id="6_1tkn7"]
-[ext_resource type="PackedScene" uid="uid://3snbhbnh0bl1" path="res://Assets/safe.tscn" id="6_8r4wf"]
-[ext_resource type="PackedScene" uid="uid://cjrwwoyxxs6h4" path="res://Assets/printer.tscn" id="6_nwl41"]
-[ext_resource type="PackedScene" uid="uid://ckkj4y3fg00dj" path="res://Assets/pan.tscn" id="8_f6f3w"]
+[ext_resource type="PackedScene" uid="uid://bi0ibws47b40m" path="res://Assets/oven.tscn" id="6_1tkn7"]
+[ext_resource type="PackedScene" uid="uid://i5x6gegiagnc" path="res://Assets/safe.tscn" id="6_8r4wf"]
+[ext_resource type="PackedScene" uid="uid://c05drvw2323nb" path="res://Assets/printer.tscn" id="6_nwl41"]
+[ext_resource type="PackedScene" uid="uid://be1ex2ijvvox3" path="res://Assets/wifi_adapter.tscn" id="7_0otj4"]
+[ext_resource type="PackedScene" uid="uid://b7387peyxeu3b" path="res://Assets/pan.tscn" id="8_f6f3w"]
+[ext_resource type="Texture2D" uid="uid://u8hmke4trv78" path="res://Assets/door.png" id="8_sahmx"]
+[ext_resource type="PackedScene" uid="uid://d4gpyie2q8g2j" path="res://Scenes/Paper.tscn" id="9_7gmp2"]
+[ext_resource type="PackedScene" uid="uid://ctumvnhqau0ag" path="res://Assets/laptop.tscn" id="10_1imqe"]
+[ext_resource type="PackedScene" uid="uid://byl28c1shykwp" path="res://Assets/couch.tscn" id="11_g6tu0"]
+[ext_resource type="PackedScene" uid="uid://k7uak5vi81gw" path="res://Assets/door_mat.tscn" id="15_ughwl"]
+[ext_resource type="Script" path="res://Scripts/searchable.gd" id="17_ujk22"]
+[ext_resource type="Texture2D" uid="uid://c1nb3toh465ri" path="res://Assets/reader.png" id="18_y8bly"]
+[ext_resource type="Script" path="res://Scenes/key_card_reader.gd" id="19_arnnh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ei52d"]
+albedo_texture = ExtResource("8_sahmx")
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xqca4"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 2.44
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ernjf"]
 albedo_texture = ExtResource("1_8jnvn")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ty7xf"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_uspmg"]
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_epog8"]
 albedo_texture = ExtResource("4_u1l4x")
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ylw67"]
+albedo_texture = ExtResource("18_y8bly")
+texture_filter = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_88d2s"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_hknmf"]
+plane = Plane(0, 0, 1, -5)
 
 [node name="Node3D" type="Node3D"]
+script = ExtResource("1_vmsmh")
 
 [node name="Room" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.245117, 0)
@@ -36,50 +62,96 @@ transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 4.26601, 0.320109, -4.04756)
 
 [node name="paint_can" parent="Room" instance=ExtResource("4_r6yhd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.51015, 0.641079, -4.55839)
+script = ExtResource("17_ujk22")
+search_name = "Paint Can"
+result_text = "You found a wifi adapter [i]that't totaly not a radio tower[/i]"
+is_paper = false
+depsoit_vec = Vector3(0, 0.5, 0)
+
+[node name="held_itm" parent="Room/paint_can" instance=ExtResource("7_0otj4")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+visible = false
 
 [node name="Printer" parent="Room" instance=ExtResource("6_nwl41")]
 transform = Transform3D(-1.31134e-07, 0, 3, 0, 3, 0, -3, 0, -1.31134e-07, -4.33583, 0.255623, 2.33886)
 
-[node name="Area3D" parent="Room" instance=ExtResource("6_1tkn7")]
+[node name="stove" parent="Room" instance=ExtResource("6_1tkn7")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 4.20795, 1.30446, 3.94325)
 
 [node name="pan" parent="Room" instance=ExtResource("8_f6f3w")]
-transform = Transform3D(-3.78552e-08, -0.5, -0.866025, -2.18557e-08, 0.866025, -0.5, 1, 0, -4.37114e-08, 2.6095, 1.0666, -4.33827)
+transform = Transform3D(0.707107, -0.5, -0.5, -3.09086e-08, 0.707106, -0.707107, 0.707107, 0.5, 0.5, 4.53842, 1.0666, -4.45402)
+visible = false
 gravity_scale = 1.0
+freeze = true
 
-[node name="floor" type="CSGBox3D" parent="Room"]
+[node name="door" type="CSGBox3D" parent="Room"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1.445, -5.05)
+material_override = SubResource("StandardMaterial3D_ei52d")
+use_collision = true
+size = Vector3(0.1, 2.4, 2)
+
+[node name="first_clue" parent="Room" instance=ExtResource("9_7gmp2")]
+transform = Transform3D(0.819612, 0, 0.572919, 0, 1, 0, -0.572919, 0, 0.819612, 2, 0.345117, -3)
+gravity_scale = 0.086
+
+[node name="god\'s rays" type="CSGBox3D" parent="Room"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.0500001, 1.745, -9.25)
+material_override = SubResource("StandardMaterial3D_xqca4")
+use_collision = true
+size = Vector3(0.1, 3, 2.1)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Room/god\'s rays"]
+light_energy = 1.97
+omni_range = 3.573
+
+[node name="walls" type="Node3D" parent="Room"]
+
+[node name="floor" type="CSGBox3D" parent="Room/walls"]
 material_override = SubResource("StandardMaterial3D_ernjf")
 use_collision = true
 size = Vector3(10, 0.5, 10)
 
-[node name="grabable_test_obj" type="RigidBody3D" parent="Room"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.72724, -3.47407)
-collision_layer = 3
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Room/grabable_test_obj"]
-shape = SubResource("BoxShape3D_ty7xf")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Room/grabable_test_obj/CollisionShape3D"]
+[node name="floor3" type="CSGBox3D" parent="Room/walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+material_override = SubResource("StandardMaterial3D_ernjf")
 use_collision = true
+size = Vector3(10, 0.5, 10)
 
-[node name="test_area" type="Area3D" parent="Room"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.59164, 2.22446)
-collision_layer = 2
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Room/test_area"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.245117, 0)
-shape = SubResource("BoxShape3D_uspmg")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Room/test_area"]
-
-[node name="walls" type="Node3D" parent="Room"]
+[node name="floor2" type="CSGBox3D" parent="Room/walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+material_override = SubResource("StandardMaterial3D_ernjf")
+use_collision = true
+size = Vector3(10, 0.5, 10)
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="Room/walls"]
-transform = Transform3D(3.0598e-07, 0, 1, 0, 1, 0, -1, 0, 3.0598e-07, 0, 1.75, -5.25)
+transform = Transform3D(3.0598e-07, 0, 1, 0, 1, 0, -1, 0, 3.0598e-07, -3, 1.75, -5.25)
 material_override = SubResource("StandardMaterial3D_epog8")
 use_collision = true
-size = Vector3(0.5, 3, 10)
+size = Vector3(0.5, 3, 4)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Room/walls"]
+transform = Transform3D(1, 0, -3.49691e-07, 0, 1, 0, 3.49691e-07, 0, 1, 1.2, 1.75, -7.25)
+material_override = SubResource("StandardMaterial3D_epog8")
+use_collision = true
+size = Vector3(0.5, 3, 4)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Room/walls"]
+transform = Transform3D(1, 0, -3.49691e-07, 0, 1, 0, 3.49691e-07, 0, 1, -1.3, 1.75, -7.25)
+material_override = SubResource("StandardMaterial3D_epog8")
+use_collision = true
+size = Vector3(0.5, 3, 4)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Room/walls"]
+transform = Transform3D(3.0598e-07, 0, 1, 0, 1, 0, -1, 0, 3.0598e-07, 3, 1.75, -5.25)
+material_override = SubResource("StandardMaterial3D_epog8")
+use_collision = true
+size = Vector3(0.5, 3, 4)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Room/walls"]
+transform = Transform3D(3.0598e-07, 0, 0.5, 0, 0.2, 0, -1, 0, 1.5299e-07, 5.81145e-07, 2.95, -7.15)
+material_override = SubResource("StandardMaterial3D_epog8")
+use_collision = true
+size = Vector3(4.3, 3, 4)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Room/walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.25, 1.75, 0)
@@ -99,8 +171,78 @@ material_override = SubResource("StandardMaterial3D_epog8")
 use_collision = true
 size = Vector3(0.5, 3, 10)
 
+[node name="Laptop" parent="Room" instance=ExtResource("10_1imqe")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.14637, 1.05369, 0.0860293)
+
+[node name="Couch" parent="Room" instance=ExtResource("11_g6tu0")]
+transform = Transform3D(-0.5, 0, 4.37114e-08, 0, 0.5, 0, -4.37114e-08, 0, -0.5, 0.591919, 0.255946, 4.54036)
+script = ExtResource("17_ujk22")
+search_name = "couch"
+result_text = "You found an [i]ip address[/i]?"
+depsoit_vec = Vector3(0, 0, -1)
+
+[node name="held_itm" parent="Room/Couch" instance=ExtResource("9_7gmp2")]
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 1.18384, -2.51189, 3.08072)
+
+[node name="Door mat" parent="Room" instance=ExtResource("15_ughwl")]
+transform = Transform3D(-1.74846e-09, 0, 0.04, 0, 0.04, 0, -0.04, 0, -1.74846e-09, 0, 0.245117, -4)
+script = ExtResource("17_ujk22")
+search_name = "door mat"
+result_text = "You found the password for the door"
+depsoit_vec = Vector3(0, 0.25, 0)
+
+[node name="held_itm" parent="Room/Door mat" instance=ExtResource("9_7gmp2")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 18.8721, 9.09495e-13)
+visible = false
+freeze = true
+
+[node name="key_card_reader" type="CSGBox3D" parent="Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 1.75, -4.95)
+material_override = SubResource("StandardMaterial3D_ylw67")
+size = Vector3(1, 0.5, 0.1)
+script = ExtResource("19_arnnh")
+
+[node name="magnet" type="Area3D" parent="Room/key_card_reader"]
+
+[node name="clip" type="CollisionShape3D" parent="Room/key_card_reader/magnet"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.4)
+shape = SubResource("BoxShape3D_88d2s")
+
+[node name="Label3D" type="Label3D" parent="Room/key_card_reader"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0.0697579)
+text = "idle"
+font_size = 20
+
+[node name="reset_timer" type="Timer" parent="Room/key_card_reader"]
+wait_time = 3.0
+one_shot = true
+
 [node name="env" type="Node3D" parent="."]
 
-[node name="OmniLight3D" type="OmniLight3D" parent="env"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.09106, 0.548879, -3.1105)
-light_color = Color(1, 1, 0, 1)
+[node name="door_wall" type="StaticBody3D" parent="env"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="clip" type="CollisionShape3D" parent="env/door_wall"]
+shape = SubResource("WorldBoundaryShape3D_hknmf")
+
+[node name="world_floor" type="StaticBody3D" parent="env"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="clip" type="CollisionShape3D" parent="env/world_floor"]
+shape = SubResource("WorldBoundaryShape3D_hknmf")
+
+[node name="safe_timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="adapter_exists" from="Room/table" to="." method="_on_table_adapter_exists"]
+[connection signal="correct_code" from="Room/safe" to="." method="_on_safe_correct_code"]
+[connection signal="printed" from="Room/Printer" to="." method="_on_printer_printed"]
+[connection signal="request_print" from="Room/Laptop" to="." method="_on_laptop_request_print"]
+[connection signal="safe_eligable" from="Room/Laptop" to="." method="_on_laptop_safe_eligable"]
+[connection signal="correct_password" from="Room/key_card_reader" to="." method="_on_key_card_reader_correct_password"]
+[connection signal="body_entered" from="Room/key_card_reader/magnet" to="Room/key_card_reader" method="_on_magnet_body_entered"]
+[connection signal="body_exited" from="Room/key_card_reader/magnet" to="Room/key_card_reader" method="_on_magnet_body_exited"]
+[connection signal="timeout" from="Room/key_card_reader/reset_timer" to="Room/key_card_reader" method="_on_reset_timer_timeout"]
+[connection signal="timeout" from="safe_timer" to="." method="_on_safe_timer_timeout"]

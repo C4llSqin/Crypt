@@ -11,7 +11,6 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_button_pressed() -> void:
-	$Button.hide();
-	$RichTextLabel.hide();
+	$overlay.hide()
 	$Player.activate();
 	#$Player/RigidBody3D/Camera3D.make_current()
