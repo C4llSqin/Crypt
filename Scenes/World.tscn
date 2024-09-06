@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dn4si7klbbah2"]
+[gd_scene load_steps=28 format=3 uid="uid://dn4si7klbbah2"]
 
 [ext_resource type="Texture2D" uid="uid://urptk8fueg1g" path="res://Assets/concrete_floor.png" id="1_8jnvn"]
 [ext_resource type="Script" path="res://Scenes/world.gd" id="1_vmsmh"]
@@ -9,13 +9,13 @@
 [ext_resource type="PackedScene" uid="uid://bi0ibws47b40m" path="res://Assets/oven.tscn" id="6_1tkn7"]
 [ext_resource type="PackedScene" uid="uid://i5x6gegiagnc" path="res://Assets/safe.tscn" id="6_8r4wf"]
 [ext_resource type="PackedScene" uid="uid://c05drvw2323nb" path="res://Assets/printer.tscn" id="6_nwl41"]
-[ext_resource type="PackedScene" uid="uid://be1ex2ijvvox3" path="res://Assets/wifi_adapter.tscn" id="7_0otj4"]
+[ext_resource type="PackedScene" path="res://Assets/wifi_adapter.tscn" id="7_0otj4"]
 [ext_resource type="PackedScene" uid="uid://b7387peyxeu3b" path="res://Assets/pan.tscn" id="8_f6f3w"]
 [ext_resource type="Texture2D" uid="uid://u8hmke4trv78" path="res://Assets/door.png" id="8_sahmx"]
-[ext_resource type="PackedScene" uid="uid://d4gpyie2q8g2j" path="res://Scenes/Paper.tscn" id="9_7gmp2"]
-[ext_resource type="PackedScene" uid="uid://ctumvnhqau0ag" path="res://Assets/laptop.tscn" id="10_1imqe"]
-[ext_resource type="PackedScene" uid="uid://byl28c1shykwp" path="res://Assets/couch.tscn" id="11_g6tu0"]
-[ext_resource type="PackedScene" uid="uid://k7uak5vi81gw" path="res://Assets/door_mat.tscn" id="15_ughwl"]
+[ext_resource type="PackedScene" path="res://Scenes/Paper.tscn" id="9_7gmp2"]
+[ext_resource type="PackedScene" path="res://Assets/laptop.tscn" id="10_1imqe"]
+[ext_resource type="PackedScene" path="res://Assets/couch.tscn" id="11_g6tu0"]
+[ext_resource type="PackedScene" path="res://Assets/door_mat.tscn" id="15_ughwl"]
 [ext_resource type="Script" path="res://Scripts/searchable.gd" id="17_ujk22"]
 [ext_resource type="Texture2D" uid="uid://c1nb3toh465ri" path="res://Assets/reader.png" id="18_y8bly"]
 [ext_resource type="Script" path="res://Scenes/key_card_reader.gd" id="19_arnnh"]
@@ -41,6 +41,9 @@ albedo_texture = ExtResource("18_y8bly")
 texture_filter = 0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_88d2s"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_37ig7"]
+size = Vector3(2.05957, 2.74561, 1.47351)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_hknmf"]
 plane = Plane(0, 0, 1, -5)
@@ -219,6 +222,15 @@ one_shot = true
 
 [node name="env" type="Node3D" parent="."]
 
+[node name="exit_trigger" type="Area3D" parent="env"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.09098)
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="env/exit_trigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0249023, 1.28263, -0.442049)
+shape = SubResource("BoxShape3D_37ig7")
+
 [node name="door_wall" type="StaticBody3D" parent="env"]
 collision_layer = 4
 collision_mask = 4
@@ -245,4 +257,5 @@ one_shot = true
 [connection signal="body_entered" from="Room/key_card_reader/magnet" to="Room/key_card_reader" method="_on_magnet_body_entered"]
 [connection signal="body_exited" from="Room/key_card_reader/magnet" to="Room/key_card_reader" method="_on_magnet_body_exited"]
 [connection signal="timeout" from="Room/key_card_reader/reset_timer" to="Room/key_card_reader" method="_on_reset_timer_timeout"]
+[connection signal="body_entered" from="env/exit_trigger" to="." method="_on_exit_trigger_body_entered"]
 [connection signal="timeout" from="safe_timer" to="." method="_on_safe_timer_timeout"]

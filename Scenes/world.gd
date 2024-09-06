@@ -1,5 +1,7 @@
 extends Node3D
 
+signal game_end
+
 var laptop_id = randi_range(0, 9999)
 var modulos = [randi_range(2,9), randi_range(2,9), randi_range(2,9), randi_range(2,9)]
 var safe_code = 0
@@ -53,3 +55,7 @@ func _on_laptop_request_print() -> void:
 
 func _on_printer_printed() -> void:
 	$Room/Laptop.set_print_err("")
+
+
+func _on_exit_trigger_body_entered(body: Node3D) -> void:
+	emit_signal("game_end")
