@@ -10,7 +10,7 @@ const Sense = -0.4
 var active = false
 
 # holding
-const throw_force = 1
+const throw_force = 2
 const follow_force = 5
 const object_distance = 2
 const max_distance = 5.0
@@ -37,7 +37,7 @@ func throw_held():
 	if heldObject != null:
 		var obj = heldObject
 		heldObject = null
-		obj.apply_central_impulse(-$Head.global_basis.z * throw_force * 10)
+		obj.apply_central_impulse(-$Head.global_basis.z * throw_force)
 
 func fus_ro_dah():
 	if heldObject != null:
